@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="header">
-            <span v-if="open" @click="open = !open"> Collapse
+            <span v-if="open" @click="open = !open"> &#8661; Collapse
 
             </span>
-            <span v-else @click="open = !open"> Collapse
+            <span v-else @click="open = !open"> &#8661; Collapse
 
             </span>
             <slot v-if="open">
@@ -28,5 +28,9 @@
 </script>
 
 <style>
-
+    span{
+        background-color:grey;
+        display:block;
+        padding:3px;
+    }
 </style>
