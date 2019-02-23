@@ -28,9 +28,12 @@
 </script>
 
 <style>
-    span{
+    .header span{
         background-color:grey;
         display:block;
         padding:3px;
     }
+        .header span:hover{
+        cursor:pointer;
+        }
 </style>
