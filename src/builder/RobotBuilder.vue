@@ -52,7 +52,7 @@
   </div>
 </template>
 <script>
-import availableParts from "../data/parts";
+
 import PartSelector from "../partSelector/PartSelector.vue";
 import CollapsibleSection from "../Shared/CollapsibleSection.vue";
 import RobotPreview from "./RobotPreview.vue";
@@ -67,7 +67,6 @@ export default {
   created() {},
   data() {
     return {
-      availableParts,
       selectedRobot: {
         head: {},
         leftArm: {},
@@ -77,7 +76,12 @@ export default {
       }
     };
   },
-  computed: {},
+  computed: {
+    availableParts(){
+      return this.$store.state.availableParts
+    }
+
+  },
   methods: {},
   created() {}
 };

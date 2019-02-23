@@ -44,9 +44,7 @@ export default {
       this.$emit("partSelected", this.selectedPart);
     },
     selectNextPart() {
-      const incrIndex = this.selectedPartIndex + 1;
-      this.selectedPartIndex =
-        incrIndex > this.parts.length - 1 ? 0 : incrIndex;
+     
     },
     selectPreviousPart() {
       const prevIndex = this.selectedPartIndex - 1;
