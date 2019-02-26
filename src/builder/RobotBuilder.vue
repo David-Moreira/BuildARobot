@@ -10,51 +10,50 @@
     <div class="top-row">
       <div class="top part">
         <PartSelector
-          :parts="availableParts.heads"
+          :selectedPart="this.selectedRobot.head"
           position="top"
-          @partSelected="part => this.selectedRobot.head = part"
         />
+        <!-- @partSelected="part => this.selectedRobot.head = part" -->
       </div>
     </div>
     <div class="middle-row">
       <div class="left part">
         <PartSelector
-          :parts="availableParts.arms"
+        :selectedPart="this.selectedRobot.leftArm"
           position="left"
-          @partSelected="part => this.selectedRobot.leftArm = part"
         />
+        <!-- @partSelected="part => this.selectedRobot.leftArm = part" -->
       </div>
 
       <div class="center part">
         <PartSelector
-          :parts="availableParts.torsos"
+        :selectedPart="this.selectedRobot.torso"
           position="center"
-          @partSelected="part => this.selectedRobot.torso = part"
         />
+        <!-- @partSelected="part => this.selectedRobot.torso = part" -->
       </div>
 
       <div class="right part">
         <PartSelector
-          :parts="availableParts.arms"
           position="right"
-          @partSelected="part => this.selectedRobot.rightArm = part"
-        />
+          :selectedPart="this.selectedRobot.rightArm"/>
+                  <!-- @partSelected="part => this.selectedRobot.rightArm = part" -->
       </div>
     </div>
     <div class="bottom-row">
       <div class="bottom part">
         <PartSelector
-          :parts="availableParts.bases"
           position="bottom"
-          @partSelected="part => this.selectedRobot.base = part"
+          :selectedPart="this.selectedRobot.base"
         />
+        <!-- @partSelected="part => this.selectedRobot.base = part" -->
       </div>
     </div>
   <cart :cart="this.cart"/>
   </div>
 </template>
 <script>
-import availableParts from "../data/parts";
+
 import PartSelector from "../partSelector/PartSelector.vue";
 import CollapsibleSection from "../Shared/CollapsibleSection.vue";
 import RobotPreview from "./RobotPreview.vue";
@@ -108,6 +107,11 @@ export default {
     }
   },
   created() {}
+  computed: {
+    selectedRobot(){
+      return this.$store.state.selectedRobot;}
+  },
+  methods: {},
 };
 </script>
 

@@ -1,11 +1,15 @@
 <template>
   <div :class="'part' + position">
-    <router-link :to="{name:'PartInfo', 
-      params: {id:this.selectedPart.id,
-                partType: this.selectedPart.type}}">
+    <router-link :to="{
+                      name:'PartInfo', 
+                      params: {
+                        id:this.selectedPart.id,
+                        partType: this.selectedPart.type
+                                }}"
+                                >
     <img :src="selectedPart.src" title="arm"></router-link>
-    <button @click="selectPreviousPart()" class="prev-selector"></button>
-    <button @click="selectNextPart()" class="next-selector"></button>
+    <button @click="selectPreviousPart(selectedPart,position)" class="prev-selector"></button>
+    <button @click="selectNextPart(selectedPart,position)" class="next-selector"></button>
     <span class="sale" v-show="selectedPart.onSale">Sale!</span>
   </div>
 </template>
@@ -16,7 +20,7 @@ export default {
   props: {
     parts: {
       type: Array,
-      required: true
+      // required: true
     },
     position: {
       type: String,
@@ -24,6 +28,10 @@ export default {
       validator(value) {
         return ["left", "right", "bottom", "top", "center"].includes(value);
       }
+    },
+    selectedPart:{
+      type: Object,
+      required:true
     }
   },
   data() {
@@ -32,29 +40,25 @@ export default {
     };
   },
   computed: {
-    selectedPart() {
-      return this.parts[this.selectedPartIndex];
-    }
+    // selectedPart() {
+    //   return this.parts[this.selectedPartIndex];
+    // }
   },
   created() {
-    this.emitSelectedPart();
+    // this.emitSelectedPart();
   },
   updated() {
-    this.emitSelectedPart();
+    // this.emitSelectedPart();
   },
   methods: {
     emitSelectedPart() {
       this.$emit("partSelected", this.selectedPart);
     },
-    selectNextPart() {
-      const incrIndex = this.selectedPartIndex + 1;
-      this.selectedPartIndex =
-        incrIndex > this.parts.length - 1 ? 0 : incrIndex;
+    selectNextPart(selectedPart,position) {
+     this.$store.commit("selectNextPart",{partType:selectedPart.type, position:position});
     },
-    selectPreviousPart() {
-      const prevIndex = this.selectedPartIndex - 1;
-      this.selectedPartIndex =
-        prevIndex < 0 ? this.parts.length - 1 : prevIndex;
+    selectPreviousPart(selectedPart,position) {
+      this.$store.commit("selectPreviousPart",{partType:selectedPart.type, position:position});
     }
   }
 };
