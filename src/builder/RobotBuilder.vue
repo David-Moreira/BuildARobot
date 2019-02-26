@@ -4,6 +4,7 @@
       <CollapsibleSection>
         <RobotPreview :selectedRobot="this.selectedRobot"></RobotPreview>
       </CollapsibleSection>
+      <button class="add-to-cart" @click="addToCart()">Add To Cart!</button>
     </div>
 
     <div class="top-row">
@@ -49,6 +50,7 @@
         />
       </div>
     </div>
+  <cart :cart="this.cart"/>
   </div>
 </template>
 <script>
@@ -56,18 +58,32 @@ import availableParts from "../data/parts";
 import PartSelector from "../partSelector/PartSelector.vue";
 import CollapsibleSection from "../Shared/CollapsibleSection.vue";
 import RobotPreview from "./RobotPreview.vue";
+import Cart from "../cart/cart.vue"
 
 export default {
   name: "RobotBuilder",
   components: {
     PartSelector,
     CollapsibleSection,
-    RobotPreview
+    RobotPreview,
+    Cart
+  },
+  beforeRouteLeave(to, from, next){
+      if(this.addedToCart)
+      {
+        next(true);}
+      else{
+        const response = confirm("You have not added your robot to your cart, are you sure you want to leave?");}
+        
+  
+      next(response);
   },
   created() {},
   data() {
     return {
       availableParts,
+      addedToCart: false,
+      cart: [],
       selectedRobot: {
         head: {},
         leftArm: {},
@@ -78,7 +94,19 @@ export default {
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    addToCart() {
+      const robot = this.selectedRobot;
+      const cost =
+        robot.head.cost +
+        robot.leftArm.cost +
+        robot.rightArm.cost +
+        robot.torso.cost +
+        robot.base.cost;
+      this.cart.push({ ...robot, cost });
+      this.addedToCart = true;
+    }
+  },
   created() {}
 };
 </script>
@@ -125,5 +153,9 @@ export default {
   border-top: none;
 }
 
-
+.add-to-cart {
+  width: 225px;
+  padding: 3px;
+  font-size: 16px;
+}
 </style>
