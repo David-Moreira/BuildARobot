@@ -20,7 +20,9 @@ export default new Vuex.Store({
       torso:0,
       rightArm:0,
       base:0
-    }
+    },
+    cart:[],
+    addedToCart: false
   },
   mutations: {
     selectNextPart(state, {partType, position}){
@@ -41,6 +43,17 @@ export default new Vuex.Store({
       this.state.selectedIndex[pos] = prevIndex < 0 ? parts.length - 1 : prevIndex;
       this.state.selectedRobot[pos] = parts[this.state.selectedIndex[pos]];
 
+    },
+    addToCart(state, {currentRobot}) {
+      const robot = currentRobot;
+      const cost =
+        robot.head.cost +
+        robot.leftArm.cost +
+        robot.rightArm.cost +
+        robot.torso.cost +
+        robot.base.cost;
+      this.state.cart.push({ ...robot, cost });
+      this.state.addedToCart = true;
     }
 
   },
@@ -48,9 +61,7 @@ export default new Vuex.Store({
 
   },
   getters: {
-    getSelectedIndex(state){
-      return 1;
-    }
+
   }
 })
 

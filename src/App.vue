@@ -17,7 +17,6 @@
       </nav>
     </header>
     <main>
-      <button @click="navToBuilder()">Builder</button>
       <router-view/>
     </main>
   </div>
