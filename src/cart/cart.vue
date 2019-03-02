@@ -6,12 +6,13 @@
 
       <div class="flex-container">
         <div class="flex-col">
-          <div class="cart-item" v-for="(robot, index) in cart" :key="index">
+          <div class=" flex-container cart-item" v-for="(robot, index) in cart" :key="index">
             <a
               :class="{active: index==selectedInd, 'cart-link': true}"
               @click="selectedInd = index"
             >{{robot.head.title}} {{robot.cost}} €</a>
-            <a id="deleteBtn" class="cart-link delete" @click="deleteItem(index)">X</a>
+            
+              <a id="deleteBtn" class="cart-link delete" @click="deleteItem(index)">X</a>
           </div>
         </div>
         <div v-if="cart.length > 0">
@@ -20,6 +21,10 @@
             <RobotPreview :selectedRobot="cart[selectedInd]"></RobotPreview>
           </div>
         </div>
+      </div>
+
+      <div v-if="cart.length > 0" class="cart-table-footer">
+        <router-link to="/checkout" class="cart-link-checkout"> CHECKOUT! &#8594; </router-link>
       </div>
     </div>
   </div>
@@ -87,6 +92,8 @@ export default {
     margin-bottom: 5px;
   }
   .cart-link {
+    text-align: center;
+    min-width: 200px;
     margin: 10px;
     color: white;
     background-color: rgba(85, 122, 243, 1);
@@ -102,7 +109,22 @@ export default {
       color: rgba(85, 122, 243, 0.534);
     }
     &.delete{
+      min-width: auto;
       background-color:red;
+    }
+  }
+  .cart-link-checkout{
+    float:right;
+    padding: 5px;
+    background-color: rgb(4, 194, 45);
+    border: 2px solid black;
+    font-weight: bold;
+    text-decoration: none;
+    color:black;
+    &:hover{
+      color:rgb(4, 194, 45);
+      background-color:white;
+      border: 2px solid rgb(4, 194, 45);;
     }
   }
   .preview-cart {
