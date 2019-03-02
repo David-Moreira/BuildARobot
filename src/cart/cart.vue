@@ -4,7 +4,7 @@
     <div>
       <div class="cart-table-header"></div>
 
-      <div class="flex-container">
+      <div class="cart-table-body flex-container">
         <div class="flex-col">
           <div class=" flex-container cart-item" v-for="(robot, index) in cart" :key="index">
             <a
@@ -17,7 +17,7 @@
         </div>
         <div v-if="cart.length > 0">
           <div class="preview-cart">
-            {{`Item: ${selectedInd} | ${cart[selectedInd].head.title}`}}
+            <strong>{{`Item: ${selectedInd} | ${cart[selectedInd].head.title}`}}</strong>
             <RobotPreview :selectedRobot="cart[selectedInd]"></RobotPreview>
           </div>
         </div>
@@ -37,14 +37,15 @@ export default {
     RobotPreview
   },
   props: {
-    cart: {
-      type: Array,
-      required: true
-    }
+    // cart: {
+    //   type: Array,
+    //   required: true
+    // }
   },
   data() {
     return {
-      selectedInd: 0
+      selectedInd: 0,
+      cart: this.$store.state.cart
     };
   },
   methods: {
@@ -73,12 +74,24 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 
   h1{
-    margin-top:5px;
-    margin-left:5px;
+    background-color: beige;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+    border: 1px solid dimgrey;
+    border-radius:3px;
+    margin:5px;
   }
 
   .cart-table-header {
-    margin-bottom: 10px;
+    margin-bottom: 25px;
+  }
+
+  .cart-table-body{
+
+  }
+
+  .cart-table-footer{
+    float:right;
   }
 
   .flex-container {
@@ -99,7 +112,6 @@ export default {
     background-color: rgba(85, 122, 243, 1);
     padding: 5px;
     border: 2px solid black;
-    border-radius: 15px;
     font-weight: bold;
 
     &:hover,
@@ -111,16 +123,19 @@ export default {
     &.delete{
       min-width: auto;
       background-color:red;
+      &:hover{
+        color:black;
+      }
     }
   }
   .cart-link-checkout{
-    float:right;
     padding: 5px;
     background-color: rgb(4, 194, 45);
     border: 2px solid black;
     font-weight: bold;
     text-decoration: none;
     color:black;
+    border-radius:8px;
     &:hover{
       color:rgb(4, 194, 45);
       background-color:white;
@@ -128,8 +143,6 @@ export default {
     }
   }
   .preview-cart {
-    position: relative;
-    top: -20px;
     right: 0;
     width: 210px;
     height: 210px;

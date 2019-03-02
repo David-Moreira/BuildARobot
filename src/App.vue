@@ -13,6 +13,9 @@
           <li class="nav-item">
             <router-link :to="{name: 'Builder'}" class="nav-link" active-class="foo" exact>Robot Builder</router-link>
           </li>
+          <li v-if="this.$store.state.cart.length > 0" class="nav-item">
+            <router-link :to="{name: 'Cart'}" class="nav-link" active-class="foo" exact>Cart</router-link>
+          </li>
         </ul>
       </nav>
     </header>
