@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import availableParts from "./data/parts";
-
+import { stat } from 'fs';
+import axios from 'axios';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -58,10 +59,14 @@ export default new Vuex.Store({
 
   },
   actions: {
-
+    getparts(context){
+        axios.get('api/parts').then(console.log)
+    }
   },
   getters: {
-
+    cartSaleItems(state){
+      return state.cart.filter(item => item.head.onSale);
+    }
   }
 })
 
